@@ -1,0 +1,37 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+    <!-- Add your change sets here -->
+    <changeSet id="1" author="Nookesh">
+        <createTable tableName="shipper">
+            <column name="id" type="int" autoIncrement="true" startWith="1" incrementBy="1">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="contactinfo" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="location_a" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="location_b" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <insert tableName="shipper">
+            <column name="name" value="Nookesh"/>
+            <column name="contactinfo" value="7890654321"/>
+            <column name="location_a" value="101"/>
+            <column name="location_b" value="102"/>
+        </insert>
+        <insert tableName="shipper">
+            <column name="name" value="Dinesh"/>
+            <column name="contactinfo" value="7689054321"/>
+            <column name="location_a" value="103"/>
+            <column name="location_b" value="104"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

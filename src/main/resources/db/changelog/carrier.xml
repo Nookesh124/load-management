@@ -1,0 +1,27 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+    <!-- Add your change sets here -->
+    <changeSet id="2" author="Nookesh">
+        <createTable tableName="carrier">
+            <column name="id" type="int" autoIncrement="true" startWith="1" incrementBy="1">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="contactinfo" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <insert tableName="carrier">
+            <column name="name" value="Vinay"/>
+            <column name="contactinfo" value="9988776655"/>
+        </insert>
+        <insert tableName="carrier">
+            <column name="name" value="Kishore"/>
+            <column name="contactinfo" value="9900887766"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

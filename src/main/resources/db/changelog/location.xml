@@ -1,0 +1,79 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+    <!-- Add your change sets here -->
+    <changeSet id="4" author="Nookesh">
+        <createTable tableName="location">
+            <column name="id" type="int" autoIncrement="true" startWith="101" incrementBy="1">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="city" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="state" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="zipcode" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <insert tableName="location">
+            <column name="name" value="Visakhapatnam"/>
+            <column name="address" value="Address1"/>
+            <column name="city" value="Visakhapatnam"/>
+            <column name="state" value="Andhra Pradesh"/>
+            <column name="country" value="India"/>
+            <column name="zipcode" value="530026"/>
+        </insert>
+        <insert tableName="location">
+            <column name="name" value="Palasa"/>
+            <column name="address" value="Address2"/>
+            <column name="city" value="Srikakulam"/>
+            <column name="state" value="Andhra Pradesh"/>
+            <column name="country" value="India"/>
+            <column name="zipcode" value="532001"/>
+        </insert>
+        <insert tableName="location">
+            <column name="name" value="Rajamahendravaram"/>
+            <column name="address" value="Address3"/>
+            <column name="city" value="East Godavari"/>
+            <column name="state" value="Andhra Pradesh"/>
+            <column name="country" value="India"/>
+            <column name="zipcode" value="533107"/>
+        </insert>
+        <insert tableName="location">
+            <column name="name" value="Warangal"/>
+            <column name="address" value="Address4"/>
+            <column name="city" value="Warangal"/>
+            <column name="state" value="Telangana"/>
+            <column name="country" value="India"/>
+            <column name="zipcode" value="506310"/>
+        </insert>
+        <insert tableName="location">
+            <column name="name" value="Thiruvananthapuram"/>
+            <column name="address" value="Address5"/>
+            <column name="city" value="Thiruvananthapuram"/>
+            <column name="state" value="Kerala"/>
+            <column name="country" value="India"/>
+            <column name="zipcode" value="695581"/>
+        </insert>
+        <insert tableName="location">
+            <column name="name" value="Columbus"/>
+            <column name="address" value="Address6"/>
+            <column name="city" value="Columbus"/>
+            <column name="state" value="Ohio"/>
+            <column name="country" value="United States"/>
+            <column name="zipcode" value="43081"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

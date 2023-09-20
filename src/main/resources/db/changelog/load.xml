@@ -1,0 +1,92 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+    <!-- Add your change sets here -->
+    <changeSet id="3" author="Nookesh">
+        <createTable tableName="load">
+            <column name="id" type="int" autoIncrement="true" startWith="201" incrementBy="1">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="description" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="weight" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="amount" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="pickupid" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deliveryid" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="shipperid" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="carrierid" type="int">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="load" baseColumnNames="shipperid" constraintName="fk_load_shipperid" referencedTableName="shipper"
+                                 referencedColumnNames="id" onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="load" baseColumnNames="carrierid" constraintName="fk_load_carrierid" referencedTableName="carrier"
+                                 referencedColumnNames="id" onDelete="CASCADE"/>
+        <insert tableName="load">
+            <column name="description" value="Load 1"/>
+            <column name="weight" value="1000"/>
+            <column name="amount" value="100000"/>
+            <column name="pickupid" value="101"/>
+            <column name="deliveryid" value="102"/>
+            <column name="shipperid" value="1"/>
+            <column name="carrierid" value="1"/>
+        </insert>
+        <insert tableName="load">
+            <column name="description" value="Load 2"/>
+            <column name="weight" value="1200"/>
+            <column name="amount" value="120000"/>
+            <column name="pickupid" value="103"/>
+            <column name="deliveryid" value="104"/>
+            <column name="shipperid" value="1"/>
+            <column name="carrierid" value="NULL"/>
+        </insert>
+        <insert tableName="load">
+            <column name="description" value="Load 3"/>
+            <column name="weight" value="1500"/>
+            <column name="amount" value="100000"/>
+            <column name="pickupid" value="101"/>
+            <column name="deliveryid" value="104"/>
+            <column name="shipperid" value="1"/>
+            <column name="carrierid" value="2"/>
+        </insert>
+        <insert tableName="load">
+            <column name="description" value="Load 4"/>
+            <column name="weight" value="800"/>
+            <column name="amount" value="120000"/>
+            <column name="pickupid" value="102"/>
+            <column name="deliveryid" value="105"/>
+            <column name="shipperid" value="2"/>
+            <column name="carrierid" value="NULL"/>
+        </insert>
+        <insert tableName="load">
+            <column name="description" value="Load 5"/>
+            <column name="weight" value="500"/>
+            <column name="amount" value="80000"/>
+            <column name="pickupid" value="104"/>
+            <column name="deliveryid" value="106"/>
+            <column name="shipperid" value="2"/>
+            <column name="carrierid" value="1"/>
+        </insert>
+        <insert tableName="load">
+            <column name="description" value="Load 6"/>
+            <column name="weight" value="1800"/>
+            <column name="amount" value="180000"/>
+            <column name="pickupid" value="103"/>
+            <column name="deliveryid" value="106"/>
+            <column name="shipperid" value="2"/>
+            <column name="carrierid" value="2"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
