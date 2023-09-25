@@ -44,7 +44,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity.csrf().disable()
                 .authorizeHttpRequests().requestMatchers("/load/authenticate").permitAll().and()
-                .authorizeHttpRequests().requestMatchers("/load","/shipper","/location","/carrier").authenticated().and()
+                .authorizeHttpRequests().requestMatchers("/load","/shipper","/location","/carrier").permitAll().and()
                 .authorizeHttpRequests()
                 .requestMatchers("/load/**","/shipper/**")
                 .hasAuthority("admin").and()

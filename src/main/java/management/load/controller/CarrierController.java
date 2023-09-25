@@ -7,7 +7,9 @@ import management.load.entities.Shipper;
 import management.load.repositories.CarrierRepository;
 import management.load.service.CarrierService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,27 +24,48 @@ public class CarrierController {
     @Autowired
     private CarrierRepository carrierRepository;
 
+    @GetMapping
     public List<Carrier> getCarriers(){
         return carrierService.getAllCarriers();
     }
 
     @GetMapping("/{id}")
     public List<Load> getListOfLoads(@PathVariable("id") Integer id){
-        return carrierService.getCarrierLoads(id);
+        Optional<Carrier> load = carrierRepository.findById(id);
+        if(load != null) {
+            return carrierService.getCarrierLoads(id);
+        }else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/add")
     public Carrier addNewCarrier(@RequestBody Carrier carrier){
-        return carrierRepository.save(carrier);
+        Carrier carrier1 = carrierRepository.findById(carrier.getId()).get();
+        if(carrier1 == null) {
+            return carrierRepository.save(carrier);
+        }else{
+            throw new ResponseStatusException(HttpStatus.ALREADY_REPORTED);
+        }
     }
 
     @DeleteMapping("/delete")
     public String deleteCarrier(@RequestParam("carrierId") int id){
-        return carrierService.deleteCarrier(id);
+        Optional<Carrier> carrier = carrierRepository.findById(id);
+        if(carrier != null) {
+            return carrierService.deleteCarrier(id);
+        }else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/update")
     public String updateCarrier(@RequestParam("id") int id,@RequestParam("contactInfo") String info){
-        return carrierService.updateCarrier(id,info);
+        Optional<Carrier> carrier = carrierRepository.findById(id);
+        if(carrier != null) {
+            return carrierService.updateCarrier(id, info);
+        }else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 }

@@ -18,13 +18,14 @@ public class ShipperController {
     private ShipperService shipperService;
     private ShipperRepository shipperRepository;
 
+    @GetMapping
     public List<Shipper> getShippers(){
         return shipperService.getAllShippers();
     }
 
     @GetMapping("/{id}")
     public List<Load> getLoadByShipper(@PathVariable("id") int id){
-        return shipperService.getShiperLoads(id);
+        return shipperService.getShipperLoads(id);
     }
 
     @GetMapping("/location")

@@ -13,8 +13,8 @@ public interface LoadRepository extends JpaRepository<Load,Integer> {
 
     List<Load> findByCarrierId(int carrierid);
 
-    @Query("select l.shipperId,l.carrierId from Load l where carrierId=:id")
-    public List<Integer> getShipperForCarrier(@Param("id") Integer id);
+    @Query("select l from Load l where carrierId=:id")
+    public List<Load> getShipperForCarrier(@Param("id") Integer id);
 
     @Query("from Load where pickupId=:id1 and deliveryId=:id2")
     public Load getLoads(@Param("id1")int id1,@Param("id2") int id2);

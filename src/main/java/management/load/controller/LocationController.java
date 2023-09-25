@@ -16,6 +16,7 @@ public class LocationController {
 
     private LocationRepository locationRepository;
 
+    @GetMapping
     public List<Location> getLocations(){
         return locationService.getAllLocations();
     }
