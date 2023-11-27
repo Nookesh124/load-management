@@ -1,5 +1,9 @@
 package management.load.config;
 
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.NoArgsConstructor;
 import management.load.filter.JwtAuthFilter;
 import management.load.repositories.UserInfoRepository;
@@ -43,15 +47,10 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity.csrf().disable()
-                .authorizeHttpRequests().requestMatchers("/load/authenticate").permitAll().and()
-                .authorizeHttpRequests().requestMatchers("/load","/shipper","/location","/carrier").permitAll().and()
-                .authorizeHttpRequests()
-                .requestMatchers("/load/**","/shipper/**")
-                .hasAuthority("admin").and()
-                .authorizeHttpRequests().requestMatchers("/location/**","/carrier/**")
-                .hasAuthority("user").and()
-                .httpBasic().and()
-                .authorizeHttpRequests().requestMatchers("/**").permitAll().and().httpBasic().and()
+                .authorizeRequests()
+                .requestMatchers("/load/authenticate","/load","/shipper","/location","/carrier","/load/refreshToken").permitAll()
+                .requestMatchers("/load/**","/shipper/**","/location/**","/carrier/**").authenticated()
+                .requestMatchers("/**").permitAll().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -69,9 +68,22 @@ public class SecurityConfiguration {
     }
 
 
-
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
+    }
+
+    private SecurityScheme createAPIKeyScheme() {
+        return new SecurityScheme()                  // Creating a new instance of SecurityScheme
+                .type(SecurityScheme.Type.HTTP)      // Setting the type of security scheme to HTTP
+                .bearerFormat("JWT")                 // Setting the bearer format to "JWT"
+                .scheme("bearer");                   // Setting the scheme to "bearer"
+    }
+    @Bean
+    public OpenAPI openAPI() {
+        return new OpenAPI()
+                .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
+                .components(new Components().addSecuritySchemes("Bearer Authentication", createAPIKeyScheme()));
+
     }
 }

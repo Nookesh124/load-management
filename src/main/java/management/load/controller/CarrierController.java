@@ -8,6 +8,7 @@ import management.load.repositories.CarrierRepository;
 import management.load.service.CarrierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -30,6 +31,7 @@ public class CarrierController {
     }
 
     @GetMapping("/{id}")
+   // @PreAuthorize("hasAuthority('user')")
     public List<Load> getListOfLoads(@PathVariable("id") Integer id){
         Optional<Carrier> load = carrierRepository.findById(id);
         if(load != null) {
@@ -40,6 +42,7 @@ public class CarrierController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('user')")
     public Carrier addNewCarrier(@RequestBody Carrier carrier){
         Carrier carrier1 = carrierRepository.findById(carrier.getId()).get();
         if(carrier1 == null) {
@@ -50,6 +53,7 @@ public class CarrierController {
     }
 
     @DeleteMapping("/delete")
+    @PreAuthorize("hasAuthority('user')")
     public String deleteCarrier(@RequestParam("carrierId") int id){
         Optional<Carrier> carrier = carrierRepository.findById(id);
         if(carrier != null) {
@@ -60,6 +64,7 @@ public class CarrierController {
     }
 
     @PutMapping("/update")
+    @PreAuthorize("hasAuthority('user')")
     public String updateCarrier(@RequestParam("id") int id,@RequestParam("contactInfo") String info){
         Optional<Carrier> carrier = carrierRepository.findById(id);
         if(carrier != null) {
